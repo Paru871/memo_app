@@ -1,20 +1,20 @@
 <section>
-<form method="post" action="/memos/<%= @id %>" class="form">
-<div class="mb-3 row">
-  <label for="title" class="col-sm-2 col-form-label">TITLE</label>    
-  <input type= "text" name="title" value="<%= h(@title) %>" class="form-control">
-</div>
+  <form method="post" action="/memos/<%= @memo['id'] %>" class="form">
+    <div class="mb-3 row">
+      <label for="title" class="col-sm-2 col-form-label">TITLE</label>    
+      <input type= "text" name="title" value="<%= h(@memo['title']) %>" class="form-control">
+    </div>
 
-<div class="mb-3 row">
-  <label for="content" class="col-sm-2 col-form-label">CONTENT</label>
-  <textarea name="content" class="form-control line-indention" rows="10"><%= h(@content) %></textarea>
-</div>
+    <div class="mb-3 row">
+      <label for="content" class="col-sm-2 col-form-label">CONTENT</label>
+      <textarea name="content" class="form-control line-indention" rows="10"><%= h(@memo['content']) %></textarea>
+    </div>
 
-<div class="py-3">
-  <input type="hidden" name="_method" value="PATCH">      
-  <button class="btn btn-info" type= "submit">
-  <i class="bi bi-check-circle me-2"></i>
-  UPDATE</button>
-</div>
-</form>
+    <div class="py-3">
+      <input type="hidden" name="_method" value="PATCH">      
+      <button class="btn btn-info" type= "submit">
+      <i class="bi bi-check-circle me-2"></i>
+      UPDATE</button>
+    </div>
+  </form>
 </section>

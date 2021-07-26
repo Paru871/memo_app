@@ -33,30 +33,24 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  hash = { id: SecureRandom.uuid, title: params[:title], content: params[:content], time: Time.now.strftime('%Y/%m/%d %H:%M:%S') }
+  hash = { id: SecureRandom.uuid, title: params[:title], content: params[:content], time: Time.now.to_time.iso8601 }
   File.open("data/#{hash[:id]}.json", 'w') { |file| JSON.dump(hash, file) }
   redirect '/memos'
 end
 
 get '/memos/:id' do
-  File.exist?(path_json_file) ? (memo = File.open(path_json_file) { |file| JSON.parse(file.read) }) : (redirect to('not_found'))
-  @title = memo['title']
-  @content = memo['content']
-  @id = memo['id']
+  File.exist?(path_json_file) ? (@memo = File.open(path_json_file) { |file| JSON.parse(file.read) }) : (redirect to('not_found'))
   erb :show
 end
 
 get '/memos/:id/edit' do
-  memo = File.open(path_json_file) { |file| JSON.parse(file.read) }
-  @title = memo['title']
-  @content = memo['content']
-  @id = memo['id']
+  File.exist?(path_json_file) ? (@memo = File.open(path_json_file) { |file| JSON.parse(file.read) }) : (redirect to('not_found'))
   erb :edit
 end
 
 patch '/memos/:id' do
   File.open(path_json_file, 'w') do |file|
-    hash = { id: params[:id], title: params[:title], content: params[:content], time: Time.now.strftime('%Y/%m/%d %H:%M:%S') }
+    hash = { id: params[:id], title: params[:title], content: params[:content], time: Time.now.to_time.iso8601 }
     JSON.dump(hash, file)
   end
   redirect '/memos'
