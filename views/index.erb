@@ -1,9 +1,9 @@
 <section>
   <ul class="list-group">
     <li class="list-group-item active" aria-current="true">TITLE(UPDATED DATE & TIME)</li>
-      <% @memos.each do |memo| %>
-       <li class="list-group-item my-2"><a href="/memos/<%= memo['id'] %>"><%= h(memo['title']) %> (<%= h(memo['time']) %>)</a></li>
-      <% end %>
+    <% @memos.each do |memo| %>
+      <li class="list-group-item my-2"><a href="/memos/<%= memo['id'] %>"><%= h(memo['title']) %> (<%= h(Time.iso8601(memo['time']).strftime('%Y/%m/%d %H:%M:%S')) %>)</a></li>
+    <% end %>
   </ul>
   <div class="py-3">
     <a class="btn btn-primary" href="/memos/new" method="get" role="button">
