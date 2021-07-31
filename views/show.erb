@@ -1,0 +1,22 @@
+<section>
+  <div class="mb-3 row">
+    <label for="title_label" class="col-sm-2 col-form-label">TITLE</label>
+    <textarea readonly class="form-control" id="title" rows="1"><%= h(@memo['title']) %></textarea>
+  </div>
+  <div class="mb-3 row">
+    <label for="content_label" class="col-sm-2 col-form-label">CONTENT</label>
+    <textarea readonly class="form-control line-indention" id="content" rows="10"><%= h(@memo['content']) %></textarea>
+  </div>
+
+  <form method="post" action="<%= @memo['id'] %>" onSubmit="return confirm('Are you sure you want to delete this memo?');">
+    <div class="d-flex align-items-center py-3">
+      <input type="hidden" name="_method" value="DELETE">
+      <button class="btn btn-danger" type="submit">
+      <i class="bi bi-file-earmark-x me-1"></i>
+      DELETE</button>
+      <a class="btn btn-success ms-3" href="/memos/<%= @memo['id'] %>/edit" method="get" role="button">
+      <i class="bi bi-pencil me-2"></i>
+      EDIT</a>
+    </div>
+  </form>
+</section>
