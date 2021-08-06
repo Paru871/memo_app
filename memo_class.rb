@@ -6,7 +6,7 @@ class Memo
   end
 
   def read_all_memos
-    @data.exec('SELECT * FROM memos_t')
+    @data.exec('SELECT * FROM memos_t ORDER BY $1 DESC' [time])
   end
 
   def create(title, content)
@@ -15,10 +15,10 @@ class Memo
   end
 
   def read_memo(id)
-    @data.exec('SELECT * FROM memos_t WHERE id = $1', [id])
+    @data.exec('SELECT * FROM memos_t WHERE id = $1', [id]).first
   end
 
-  def edit(title, content, id)
+  def update(title, content, id)
     time = Time.now
     @data.exec('UPDATE memos_t SET title = $1, content = $2, time = $3 WHERE id= $4', [title, content, time, id])
   end

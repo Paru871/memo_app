@@ -22,7 +22,7 @@ get '/' do
 end
 
 get '/memos' do
-  @memos = memo.read_all_memos.sort_by { |file| file['time'] }.reverse
+  @memos = memo.read_all_memos
   erb :index
 end
 
@@ -37,20 +37,20 @@ end
 
 get '/memos/:id' do
   @memo = memo.read_memo(params[:id])
-  erb :show
+  @memo ? (erb :show) : (redirect to('not_found'))
 end
 
 get '/memos/:id/edit' do
   @memo = memo.read_memo(params[:id])
-  erb :edit
+  @memo ? (erb :edit) : (redirect to('not_found'))
 end
 
 patch '/memos/:id' do
-  memo.edit(params[:title], params[:content], params[:id])
+  params[:id] ? memo.update(params[:title], params[:content], params[:id]) : (redirect to('not_found'))
   redirect '/memos'
 end
 
 delete '/memos/:id' do
-  memo.delete(params[:id])
+  params[:id] ? memo.delete(params[:id]) : (redirect to('not_found'))
   redirect '/memos'
 end
