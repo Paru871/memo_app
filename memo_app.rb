@@ -46,11 +46,13 @@ get '/memos/:id/edit' do
 end
 
 patch '/memos/:id' do
-  params[:id] ? memo.update(params[:title], params[:content], params[:id]) : (redirect to('not_found'))
+  @memo = memo.read_memo(params[:id])
+  @memo ? memo.update(params[:title], params[:content], params[:id]) : (redirect to('not_found'))
   redirect '/memos'
 end
 
 delete '/memos/:id' do
-  params[:id] ? memo.delete(params[:id]) : (redirect to('not_found'))
+  @memo = memo.read_memo(params[:id])
+  @memo ? memo.delete(params[:id]) : (redirect to('not_found'))
   redirect '/memos'
 end

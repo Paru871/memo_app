@@ -6,7 +6,7 @@ class Memo
   end
 
   def read_all_memos
-    @data.exec('SELECT * FROM memos_t ORDER BY $1 DESC' [time])
+    @data.exec('SELECT * FROM memos_t ORDER BY time DESC')
   end
 
   def create(title, content)
