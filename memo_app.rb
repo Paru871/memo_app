@@ -47,12 +47,20 @@ end
 
 patch '/memos/:id' do
   @memo = memo.read_memo(params[:id])
-  @memo ? memo.update(params[:title], params[:content], params[:id]) : (redirect to('not_found'))
-  redirect '/memos'
+  if @memo
+    memo.update(params[:title], params[:content], params[:id])
+    redirect '/memos'
+  else
+    status 404
+  end
 end
 
 delete '/memos/:id' do
   @memo = memo.read_memo(params[:id])
-  @memo ? memo.delete(params[:id]) : (redirect to('not_found'))
-  redirect '/memos'
+  if @memo
+    memo.delete(params[:id])
+    redirect '/memos'
+  else
+    status 404
+  end
 end
